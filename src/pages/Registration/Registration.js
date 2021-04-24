@@ -35,27 +35,27 @@ function Registration() {
                   isValid,
                   errors,
               }) => (
-                  <Container>
-                      <Form noValidate onSubmit={handleSubmit}>
-                          <Form.Row className="justify-content-md-center">
-                              <Form.Group as={Col}  md="4" controlId="validationFormik01">
-                                  <Form.Label>Name</Form.Label>
-                                  <Form.Control
-                                      type="text"
-                                      name="name"
-                                      value={values.name}
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      isValid={touched.name && isValid}
-                                      isInvalid={touched.name && !isValid}
-                                  />
-                                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                  <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-                              </Form.Group>
-                          </Form.Row>
-                          <Button type="submit" disabled={!touched.name || !isValid}>Next</Button>
-                      </Form>
-                  </Container>
+                <Container>
+                    <Form noValidate onSubmit={handleSubmit}>
+                        <Form.Row className="justify-content-md-center">
+                            <Form.Group as={Col} md="4" controlId="validationFormik01">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    isValid={touched.name && isValid}
+                                    isInvalid={touched.name && !isValid}
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Form.Row>
+                        <Button type="submit" disabled={!touched.name || !isValid}>Next</Button>
+                    </Form>
+                </Container>
 
             )}
         </Formik>
