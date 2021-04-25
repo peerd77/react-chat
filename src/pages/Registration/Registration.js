@@ -1,10 +1,11 @@
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 import {Formik} from 'formik';
 import * as yup from 'yup';
+
+import {Link} from 'react-router-dom'
 
 import {useUserContext} from "../../hooks/useUserContext";
 
@@ -62,12 +63,16 @@ function Registration() {
                                 <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
-                        <Button type="button"
-                                disabled={!touched.name || !isValid}
-                                onClick={() => handleClick(values.name)}
-                        >
-                            Next
-                        </Button>
+                        {!touched.name || !isValid ? (
+                            <></>) : (
+                            <Link type="button"
+                                  to='/chat'
+                                  onClick={() => handleClick(values.name)}
+                            >
+                                Next
+                            </Link>)
+                        }
+
 
                     </Form>
                 </Container>
