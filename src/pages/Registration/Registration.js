@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 
+import {useUserContext} from "../../hooks/useUserContext";
+
 const schema = yup.object().shape({
     name: yup.string()
         .min(6, 'Too Short!')
@@ -18,6 +20,13 @@ const schema = yup.object().shape({
 });
 
 function Registration() {
+
+    const user = useUserContext();
+
+    const handleClick = username => {
+        user.setUser({username});
+    }
+
     return (
         <Formik
             validationSchema={schema}
@@ -55,7 +64,7 @@ function Registration() {
                         </Form.Row>
                         <Button type="button"
                                 disabled={!touched.name || !isValid}
-                                onClick={() => console.log('clicked')}
+                                onClick={() => handleClick(values.name)}
                         >
                             Next
                         </Button>
