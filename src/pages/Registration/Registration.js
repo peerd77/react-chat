@@ -53,7 +53,13 @@ function Registration() {
                                 <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
-                        <Button type="submit" disabled={!touched.name || !isValid}>Next</Button>
+                        <Button type="button"
+                                disabled={!touched.name || !isValid}
+                                onClick={() => console.log('clicked')}
+                        >
+                            Next
+                        </Button>
+
                     </Form>
                 </Container>
 
