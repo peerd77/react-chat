@@ -69,7 +69,12 @@ const Footer = () => {
                                         isInvalid={shouldValidate && !isValid}
                                         onFocus={handleFocus}
                                     />
-                                    <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                                    <Form.Control.Feedback
+                                        type="invalid"
+                                        className={'message-feedback'}
+                                    >
+                                        {errors.message}
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                                 <Button
                                     disabled={!shouldValidate || !isValid}
@@ -78,7 +83,7 @@ const Footer = () => {
                                 >
                                     <span>{'>'}</span>
                                 </Button>
-                            </Form.Row>`
+                            </Form.Row>
 
 
 
