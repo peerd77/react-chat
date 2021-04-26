@@ -14,7 +14,7 @@ const schema = yup.object().shape({
     message: yup.string()
         .min(5, 'Too Short!')
         .max(120, 'Too Long!')
-        .matches(/^[a-zA-Z][a-zA-Z\s,.!?]*[a-zA-Z,.!?]$/, 'Can only contain English(without numbers)')
+        .matches(/^[a-zA-Z\s,.!?]*$/, 'Can only contain English(without numbers)')
         .required('Required'),
 });
 
