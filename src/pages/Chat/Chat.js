@@ -1,11 +1,27 @@
+import {Link} from 'react-router-dom'
 import {useUserContext} from "../../hooks/useUserContext";
+import ChatViewer from './ChatViewer'
+import Footer from "./Footer";
+
+import styles from './Chat.module.scss'
 
 const Chat = () => {
     const userContext = useUserContext();
     if (userContext.user)
-        return userContext.user.username
+        return (
+            <div className={styles.chat}>
+                <ChatViewer/>
+                <Footer/>
+            </div>
+        )
      return (
-         <div>no name</div>
+         <>
+             <span>Please </span>
+             <Link to='/'>
+                  Register
+             </Link>
+         </>
+
      );
 }
 

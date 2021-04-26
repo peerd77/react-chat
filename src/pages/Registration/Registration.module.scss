@@ -1,0 +1,11 @@
+.container {
+  background: burlywood;
+
+  & > * {//rows
+    border: 1px solid chartreuse;
+
+    & > * { // cols
+      border: 1px solid blueviolet;
+    }
+  }
+}
