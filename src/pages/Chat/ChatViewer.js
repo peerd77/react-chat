@@ -1,6 +1,19 @@
 import './ChatViewer.scss'
+import {useEffect, useRef} from "react";
 
 const ChatViewer = ({messages}) => {
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages]);
+
+
     if (!messages) return 'Loading';
     const messageList = messages.map((msg, index) => (
         <li
@@ -15,7 +28,9 @@ const ChatViewer = ({messages}) => {
         <div className={'chat-viewer'}>
             <ul>
                 {messageList}
+                <li ref={messagesEndRef} />
             </ul>
+
         </div>
     )
 };
