@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
+import * as ReactDOM from "react-dom";
 
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -22,6 +23,11 @@ const schema = yup.object().shape({
 const Footer = props => {
     const [didFocus, setDidFocus] = useState(false)
     const [shouldValidate, setShouldValidate] = useState(false)
+    const inputRef = useRef(null)
+
+    useEffect(() =>{
+        ReactDOM.findDOMNode(inputRef.current).focus()
+    });
 
     const handleFocus = () => setDidFocus(true);
 
@@ -79,6 +85,7 @@ const Footer = props => {
                                         isInvalid={shouldValidate && !isValid}
                                         onFocus={handleFocus}
                                         onKeyPress={event => handleKeyPress(event, values)}
+                                        ref={inputRef}
                                     />
                                     <Form.Control.Feedback
                                         type="invalid"
