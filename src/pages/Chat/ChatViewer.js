@@ -2,7 +2,14 @@ import './ChatViewer.scss'
 
 const ChatViewer = ({messages}) => {
     if (!messages) return 'Loading';
-    const messageList = messages.map((msg,index) => <li key={index}>{msg.msg}</li>);
+    const messageList = messages.map((msg, index) => (
+        <li
+            style={{'color': msg.color}}
+            key={index}
+        >
+            {msg.msg}
+        </li>
+    ));
 
     return (
         <div className={'chat-viewer'}>
