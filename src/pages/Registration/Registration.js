@@ -59,7 +59,7 @@ const  Registration = () => {
                     >
                         <Form.Row className="justify-content-md-center">
                             <Form.Group as={Col} md="4" controlId="validationFormik01">
-                                <Form.Label>Name</Form.Label>
+                                <Form.Label>Please Register</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="name"
