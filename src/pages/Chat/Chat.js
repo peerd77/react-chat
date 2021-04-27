@@ -29,6 +29,7 @@ const Chat = () => {
     if (userContext.user) {
         return (
             <div className={styles.chat}>
+                <Link to={'/'}>Back</Link>
                 <ChatViewer messages={messages}/>
                 <Footer onMessageSent={handleMessageSent}/>
             </div>
