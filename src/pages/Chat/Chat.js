@@ -4,16 +4,26 @@ import ChatViewer from './ChatViewer'
 import Footer from "./Footer";
 
 import styles from './Chat.module.scss'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import messageUtils from "../../utils/messageUtils";
+
+
 
 const Chat = () => {
     const userContext = useUserContext();
+
     const [messages, setMessages] = useState([]);
 
+    useEffect(() => {
+        const loadedMessages = messageUtils.loadMessages();
+        setMessages(loadedMessages);
+    },[])
+
     const handleMessageSent = message => {
-        //todo: save on local-storage via utils
-        console.log(message);
-        setMessages([...messages, message])
+        const processedMessage = messageUtils.processMessage(userContext.user, message)
+        const newMessages = [...messages, processedMessage];
+        setMessages(newMessages);
+        messageUtils.saveMessages(newMessages);// maybe should be optimised
     }
 
     if (userContext.user) {
