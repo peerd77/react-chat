@@ -14,43 +14,50 @@ const schema = yup.object().shape({
     message: yup.string()
         .min(5, 'Too Short!')
         .max(120, 'Too Long!')
-        .matches(/^[a-zA-Z\s,.!?]*$/, 'Can only contain English(without numbers)')
+        .matches(/^[a-zA-Z\s,.!?]*$/, 'Can only contain English (without numbers)')
         .required('Required'),
 });
 
 
-const Footer = () => {
+const Footer = props => {
     const [didFocus, setDidFocus] = useState(false)
     const [shouldValidate, setShouldValidate] = useState(false)
 
-    const handleSubmit2 = message => {
-        console.log(message)
-    }
-
-    const checkLength = messageLength => {
-        console.log(messageLength);
-        if (didFocus && messageLength > 0)
-            setShouldValidate(true)
-    }
-
     const handleFocus = () => setDidFocus(true);
 
-    // const validState =
-    //     (!!didFocus && values.message.trim().length > 2) ;
     return (
         <Formik
             validationSchema={schema}
-            onSubmit={console.log}
             initialValues={{
                 message: '',
             }}
         >
             {({
-                handleChange,
+                  handleChange,
                   values,
                   isValid,
                   errors,
-              }) => (
+              }) => {
+
+                const sendMessage = () => {
+                    if (!isValid) return;
+                    props.onMessageSent( values.message.trim())
+                    values.message = ''
+                }
+
+                const checkLength = messageLength => {
+                    if (didFocus && messageLength >= 0)
+                        setShouldValidate(true)
+                }
+
+                const handleKeyPress = (event) => {
+                    if(event.charCode === 13){
+                        sendMessage()
+                        event.preventDefault();
+                    }
+                }
+
+                return (
 
                 <footer className={'footer'}>
                     <Container>
@@ -64,10 +71,14 @@ const Footer = () => {
                                         type="text"
                                         name="message"
                                         value={values.message}
-                                        onChange={(obj)=>{handleChange(obj);checkLength(values.message.length)}}
+                                        onChange={(obj) => {
+                                            handleChange(obj);
+                                            checkLength(values.message.length)
+                                        }}
                                         isValid={shouldValidate && isValid}
                                         isInvalid={shouldValidate && !isValid}
                                         onFocus={handleFocus}
+                                        onKeyPress={event => handleKeyPress(event, values)}
                                     />
                                     <Form.Control.Feedback
                                         type="invalid"
@@ -78,20 +89,16 @@ const Footer = () => {
                                 </Form.Group>
                                 <Button
                                     disabled={!shouldValidate || !isValid}
-                                    onClick={() => handleSubmit2(values.message)}
+                                    onClick={() => sendMessage(values.message)}
                                     className={'send-btn'}
                                 >
                                     <span>{'>'}</span>
                                 </Button>
                             </Form.Row>
-
-
-
                         </Form>
                     </Container>
                 </footer>
-
-            )}
+            )}}
         </Formik>
     );
 }

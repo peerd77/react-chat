@@ -20,7 +20,7 @@ const schema = yup.object().shape({
         .required('Required'),
 });
 
-function Registration() {
+const  Registration = () => {
 
     const user = useUserContext();
 
@@ -31,7 +31,6 @@ function Registration() {
     return (
         <Formik
             validationSchema={schema}
-            onSubmit={console.log}
             initialValues={{
                 name: '',
             }}
@@ -72,8 +71,6 @@ function Registration() {
                                 Next
                             </Link>)
                         }
-
-
                     </Form>
                 </Container>
 

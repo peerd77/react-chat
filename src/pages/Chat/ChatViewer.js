@@ -1,12 +1,14 @@
 import './ChatViewer.scss'
 
-const ChatViewer = () => {
+const ChatViewer = ({messages}) => {
+    const messageList = messages.map((msg,index) => <li key={index}>{msg}</li>);
+
     return (
         <div className={'chat-viewer'}>
-            Chat Viewer
+            <ul>
+                {messageList}
+            </ul>
         </div>
-
-
     )
 };
 export default ChatViewer;

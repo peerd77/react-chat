@@ -4,25 +4,35 @@ import ChatViewer from './ChatViewer'
 import Footer from "./Footer";
 
 import styles from './Chat.module.scss'
+import {useState} from "react";
 
 const Chat = () => {
     const userContext = useUserContext();
-    if (userContext.user)
+    const [messages, setMessages] = useState([]);
+
+    const handleMessageSent = message => {
+        //todo: save on local-storage via utils
+        console.log(message);
+        setMessages([...messages, message])
+    }
+
+    if (userContext.user) {
         return (
             <div className={styles.chat}>
-                <ChatViewer/>
-                <Footer/>
+                <ChatViewer messages={messages}/>
+                <Footer onMessageSent={handleMessageSent}/>
             </div>
         )
-     return (
-         <>
-             <span>Please </span>
-             <Link to='/'>
-                  Register
-             </Link>
-         </>
+    }
+    return (
+        <>
+            <span>Please </span>
+            <Link to='/'>
+                Register
+            </Link>
+        </>
 
-     );
+    );
 }
 
 export default Chat;
