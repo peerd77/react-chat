@@ -4,7 +4,6 @@ const userContext = createContext();
 
 export function ProvideUser({children}) {
     const userObj = useProvideUser();
-    console.log(userObj);
     return <userContext.Provider value={userObj}>{children}</userContext.Provider>;
 }
 
