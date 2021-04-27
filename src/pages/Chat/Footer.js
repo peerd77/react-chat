@@ -49,6 +49,7 @@ const Footer = props => {
                     if (!isValid) return;
                     props.onMessageSent( values.message.trim())
                     values.message = ''
+                    setShouldValidate(false)
                 }
 
                 const checkLength = messageLength => {
