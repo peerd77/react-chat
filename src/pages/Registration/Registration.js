@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import {Link} from 'react-router-dom'
 
 import {useUserContext} from "../../hooks/useUserContext";
+import {useState} from "react";
 
 const schema = yup.object().shape({
     name: yup.string()
@@ -24,8 +25,16 @@ const  Registration = () => {
 
     const user = useUserContext();
 
-    const handleClick = username => {
-        user.setUser({username});
+    const [didFocus, setDidFocus] = useState(false);
+    const [shouldValidate, setShouldValidate] = useState(false)
+
+
+    const handleClick = name => {
+        user.setUser({username: name});
+    }
+
+    const checkLength = nameLength => {
+        if (didFocus && nameLength>=0) setShouldValidate(true);
     }
 
     return (
@@ -38,14 +47,16 @@ const  Registration = () => {
             {({
                   handleSubmit,
                   handleChange,
-                  handleBlur,
                   values,
-                  touched,
                   isValid,
                   errors,
-              }) => (
+              }) =>  (
                 <Container>
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form
+                        noValidate
+                        onSubmit={handleSubmit}
+                        autoComplete="off"
+                    >
                         <Form.Row className="justify-content-md-center">
                             <Form.Group as={Col} md="4" controlId="validationFormik01">
                                 <Form.Label>Name</Form.Label>
@@ -53,16 +64,19 @@ const  Registration = () => {
                                     type="text"
                                     name="name"
                                     value={values.name}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    isValid={touched.name && isValid}
-                                    isInvalid={touched.name && !isValid}
+                                    onChange={(e) => {
+                                        handleChange(e);
+                                        checkLength(values.name.length)
+                                    }}
+                                    isValid={shouldValidate && isValid}
+                                    isInvalid={shouldValidate && !isValid}
+                                    onFocus={() => setDidFocus(true)}
                                 />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
-                        {!touched.name || !isValid ? (
+                        {!shouldValidate || !isValid ? (
                             <></>) : (
                             <Link type="button"
                                   to='/chat'
