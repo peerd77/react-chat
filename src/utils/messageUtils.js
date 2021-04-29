@@ -34,7 +34,13 @@ const messageUtils = {
         }
         userToColorMap[user.username] = userToColorMap[user.username] || getRandomColor();
         const now = new Date();
-        const nowString = `[${now.getHours()}:${now.getMinutes()}-${now.getDate()}.${now.getMonth()}.${now.getFullYear()}]`
+
+        const hours = `${now.getHours()}`.padStart(2,'0');
+        const minutes = `${now.getMinutes()}`.padStart(2,'0');
+        const date = `${now.getDate()}`.padStart(2,'0');
+        const month = `${now.getMonth()}`.padStart(2,'0');
+        const fullYear = now.getFullYear();
+        const nowString = `[${hours}:${minutes}-${date}.${month}.${fullYear}]`
         return {
             username: user.username,
             msg: `${nowString} - ${user.username} - ${message}`,
