@@ -6,7 +6,11 @@ const ChatViewer = ({messages}) => {
     const messagesEndRef = useRef(null)
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        // For some reason calling scrollIntoView()
+        // with { behavior: "smooth" }
+        // causing to scroll fail on send
+        // when clicking on mouse
+        messagesEndRef.current?.scrollIntoView()
     }
 
     useEffect(() => {
